@@ -65,7 +65,7 @@ function Contratos() {
   const [esconder, setEsconder] = useState(0);
 
   const [tipoAgrupamento, setTipoAgrupamento] = useState(null);
-  const [tipo, setTipo] = useState("valores");
+  const [tipo, setTipo] = useState("quantidade");
   const [agrupamentoNumero, setAgrupamentoNumero] = useState();
 
   /!Essa função formata os numero em valor de Real, tipo (324.756,00)!/;
@@ -224,7 +224,6 @@ function Contratos() {
 
   const abrirMenus = () => {
     const sidebar = $(".Sidebar");
-
     if (sidebar.is(":visible")) {
       sidebar.stop().fadeOut(100);
     } else {
@@ -377,9 +376,6 @@ function Contratos() {
                     />
                   </div>
                   <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                    {/* <InputLabel >
-                                      Contrato
-                                    </InputLabel> */}
                     <label>Contrato</label>
                     <Form.Select
                       style={{
@@ -520,7 +516,9 @@ function Contratos() {
                       }}
                     >
                       <option value={"valores"}>Valores</option>
-                      <option value={"quantidade"}>Quantidades e Valores</option>
+                      <option value={"quantidade"}>
+                        Quantidades e Valores
+                      </option>
                     </Form.Select>
                   </FormControl>
                   <FormControl
@@ -588,98 +586,217 @@ function Contratos() {
                   className="Table-G"
                 >
                   <TableHead className="headerContratos-G">
-                    <TableRow
-                      className="header-G Contrato-G"
-                      sx={{
-                        borderBottom: "1px solid #0000001c",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%",
-                        height: "45px",
-                        backgroundColor: "#e8e8e8",
-                      }}
-                    >
-                      <div
-                        className="esquerdaHeader"
-                        style={{ minWidth: "650px", maxWidth: "650px" }}
+                    {tipo == "valores" ? (
+                      <TableRow
+                        className="header-G Contrato-G"
+                        sx={{
+                          borderBottom: "1px solid #0000001c",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          width: "100%",
+                          height: "45px",
+                          backgroundColor: "#e8e8e8",
+                        }}
                       >
-                        <TableCell
-                          className="enchimento"
-                          style={{
-                            maxWidth: "150px",
-                            minWidth: "150px",
-                            textAlign: "left",
-                            padding: "16px",
-                          }}
+                        <div
+                          className="esquerdaHeader"
+                          style={{ minWidth: "650px", maxWidth: "650px" }}
                         >
-                          <p>Nº Contrato</p>
-                        </TableCell>
-                        <TableCell
-                          className="Data-Header"
-                          style={{
-                            maxWidth: "100px",
-                            minWidth: "100px",
-                            textAlign: "left",
-                            padding: "16px",
-                          }}
+                          <TableCell
+                            className="enchimento"
+                            style={{
+                              maxWidth: "150px",
+                              minWidth: "150px",
+                              textAlign: "left",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Nº Contrato</p>
+                          </TableCell>
+                          <TableCell
+                            className="Data-Header"
+                            style={{
+                              maxWidth: "100px",
+                              minWidth: "100px",
+                              textAlign: "left",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Produto</p>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              borderBottom: "none",
+                              fontWeight: "700",
+                              fontSize: "12px",
+                              color: "#676a6c",
+                              position: "relative",
+                              right: "0",
+                              width: "100%",
+                              textAlign: "left",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Cliente</p>
+                          </TableCell>
+                        </div>
+                        <div className="direitaHeader">
+                          <TableCell
+                            style={{
+                              width: "180px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Valor Sc/Tn</p>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              width: "180px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Carregado</p>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              width: "180px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Pagamentos</p>
+                          </TableCell>
+                          <TableCell
+                            style={{
+                              width: "180px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Saldo</p>
+                          </TableCell>
+                        </div>
+                      </TableRow>
+                    ) : (
+                      <TableRow
+                        className="header-G Contrato-G"
+                        sx={{
+                          borderBottom: "1px solid #0000001c",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          width: "100%",
+                          height: "45px",
+                          backgroundColor: "#e8e8e8",
+                        }}
+                      >
+                        <div
+                          className="esquerdaHeader"
+                          style={{ minWidth: "500px", maxWidth: "500px" }}
                         >
-                          <p>Produto</p>
-                        </TableCell>
-                        <TableCell
-                          style={{
-                            borderBottom: "none",
-                            fontWeight: "700",
-                            fontSize: "15px",
-                            color: "#7e7e7e",
-                            position: "relative",
-                            right: "0",
-                            width: "100%",
-                            textAlign: "left",
-                            padding: "16px",
-                          }}
-                        >
-                          <p>Cliente</p>
-                        </TableCell>
-                      </div>
-                      <div className="direitaHeader">
-                        <TableCell
-                          style={{
-                            width: "180px",
-                            textAlign: "right",
-                            padding: "16px",
-                          }}
-                        >
-                          <p>Valor Sc/Tn</p>
-                        </TableCell>
-                        <TableCell
-                          style={{
-                            width: "180px",
-                            textAlign: "right",
-                            padding: "16px",
-                          }}
-                        >
-                          <p>Total Carregado</p>
-                        </TableCell>
-                        <TableCell
-                          style={{
-                            width: "180px",
-                            textAlign: "right",
-                            padding: "16px",
-                          }}
-                        >
-                          <p>Total Pagamentos</p>
-                        </TableCell>
-                        <TableCell
-                          style={{
-                            width: "180px",
-                            textAlign: "right",
-                            padding: "16px",
-                          }}
-                        >
-                          <p>Total Saldo</p>
-                        </TableCell>
-                        {/* <TableCell
+                          <TableCell
+                            className="enchimento"
+                            style={{
+                              maxWidth: "200px",
+                              minWidth: "200px",
+                              textAlign: "left",
+                              paddingLeft: "16px",
+                            }}
+                          >
+                            <p>Nº Contrato</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              borderBottom: "none",
+                              fontWeight: "700",
+                              fontSize: "12px",
+                              color: "#676a6c",
+                              position: "relative",
+                              right: "0",
+                              width: "100%",
+                              textAlign: "left",
+                              paddingLeft: "16px",
+                            }}
+                          >
+                            <p>Cliente</p>
+                          </TableCell>
+                        </div>
+                        <div className="direitaHeader">
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Valor Sc/Tn</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Contrato(Kg)</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Carregado(Kg)</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>À Carregar(Kg)</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Carregado(R$)</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Pagamentos(R$)</p>
+                          </TableCell>
+
+                          <TableCell
+                            style={{
+                              width: "150px",
+                              textAlign: "right",
+                              padding: "16px",
+                            }}
+                          >
+                            <p>Total Saldo(R$)</p>
+                          </TableCell>
+
+                          {/* <TableCell
                           style={{
                             width: "156px",
                             textAlign: "center",
@@ -687,95 +804,96 @@ function Contratos() {
                         >
                           <p>Produto</p>
                         </TableCell> */}
-                      </div>
-                    </TableRow>
+                        </div>
+                      </TableRow>
+                    )}
                   </TableHead>
 
                   <TableBody className="ContainerTable-G">
-                    <div
-                      className="ContainerTable-G"
-                      style={{ borderBottom: "1px solid #0000001c" }}
-                    >
-                      {Contratos.map((contrato) => (
-                        <TableRow
-                          key={contrato.IdRegistro}
-                          className="LinhaContratos-G"
-                        >
-                          <div
-                            className="contratosEsquerda"
-                            style={{
-                              width: "700px",
-                              display: "flex",
-                              alignItems: "center",
-                            }}
+                    {tipo == "valores" ? (
+                      <div
+                        className="ContainerTable-G"
+                        style={{ borderBottom: "1px solid #0000001c" }}
+                      >
+                        {Contratos.map((contrato) => (
+                          <TableRow
+                            key={contrato.IdRegistro}
+                            className="LinhaContratos-G"
                           >
-                            <TableCell
-                              className="Tipo"
+                            <div
+                              className="contratosEsquerda"
                               style={{
-                                borderBottom: "none",
-                                minWidth: "150px",
-                                maxWidth: "150px",
-                                heigth: "100%",
+                                width: "700px",
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "center",
                               }}
                             >
-                              <div
+                              <TableCell
+                                className="Tipo"
                                 style={{
-                                  width: "100%",
-                                  height: "30px",
+                                  borderBottom: "none",
+                                  minWidth: "150px",
+                                  maxWidth: "150px",
+                                  heigth: "100%",
                                   display: "flex",
                                   alignItems: "center",
-                                  justifyContent: "flex-start",
-                                  borderRadius: "5px",
-                                  // backgroundColor:
-                                  //   contrato.TipoContrato === "VENDA"
-                                  //     ? "rgb(180 255 125 / 55%)"
-                                  //     : "#87c3fe78",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "100%",
+                                    height: "30px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "flex-start",
+                                    borderRadius: "5px",
+                                    // backgroundColor:
+                                    //   contrato.TipoContrato === "VENDA"
+                                    //     ? "rgb(180 255 125 / 55%)"
+                                    //     : "#87c3fe78",
 
-                                  // color:
-                                  //   contrato.TipoContrato === "VENDA"
-                                  //     ? "#676a6c"
-                                  //     : "rgb(25, 118, 210)",
-                                }}
-                              >
-                                <p>{contrato.NContrato}</p>
-                              </div>
-                            </TableCell>
-                            <TableCell
-                              className="DataContrato"
-                              style={{
-                                borderBottom: "none",
-                                width: "100px",
-                                textAlign: "left",
-                                paddingLeft: "16px",
-                              }}
-                            >
-                              <p>{contrato.Produto}</p>
-                            </TableCell>
-                            <TableCell
-                              className="containerCliente"
-                              style={{
-                                borderBottom: "none",
-                                width: "400px",
-                              }}
-                            >
-                              <p
-                                className="Pessoa"
+                                    // color:
+                                    //   contrato.TipoContrato === "VENDA"
+                                    //     ? "#676a6c"
+                                    //     : "rgb(25, 118, 210)",
+                                  }}
+                                >
+                                  <p>{contrato.NContrato}</p>
+                                </div>
+                              </TableCell>
+                              <TableCell
+                                className="DataContrato"
                                 style={{
-                                  width: "100%",
-                                  display: "none",
+                                  borderBottom: "none",
+                                  width: "100px",
+                                  textAlign: "left",
+                                  paddingLeft: "16px",
                                 }}
                               >
-                                {contrato.Pessoa}
-                              </p>
-                              <p className="Pessoa" style={{ width: "100%" }}>
-                                {contrato.Pessoa}
-                              </p>
-                            </TableCell>
-                          </div>
-                          {tipo == "valores" ? (
+                                <p>{contrato.Produto}</p>
+                              </TableCell>
+                              <TableCell
+                                className="containerCliente"
+                                style={{
+                                  borderBottom: "none",
+                                  width: "400px",
+                                }}
+                              >
+                                <p
+                                  className="Pessoa"
+                                  style={{
+                                    width: "100%",
+                                    display: "none",
+                                  }}
+                                >
+                                  {contrato.Pessoa}
+                                </p>
+                                <p className="Pessoa" style={{ width: "100%" }}>
+                                  {contrato.Pessoa}
+                                </p>
+                              </TableCell>
+                            </div>
                             <div className="contratosDireita">
                               <div className="contratosDireita">
                                 {/* Valor Sc/Contrato */}
@@ -787,7 +905,6 @@ function Contratos() {
                                     padding: "16px",
                                   }}
                                 >
-                                 
                                   <p
                                     style={{
                                       color:
@@ -798,13 +915,12 @@ function Contratos() {
                                           : "#676a6c",
                                     }}
                                   >
-                                    {formaSaldo(contrato.VlTotalContrato).replace(
-                                    "R$",
-                                    ""
-                                  )}
+                                    {formaSaldo(
+                                      contrato.VlTotalContrato
+                                    ).replace("R$", "")}
                                   </p>
                                 </TableCell>
-                                
+
                                 {/* Total Carregado */}
                                 <TableCell
                                   className="QtdTotalCarregado valor"
@@ -824,10 +940,9 @@ function Contratos() {
                                           : "#676a6c",
                                     }}
                                   >
-                                    {formaSaldo(contrato.VlTotalCarregado).replace(
-                                    "R$",
-                                    ""
-                                  )}
+                                    {formaSaldo(
+                                      contrato.VlTotalCarregado
+                                    ).replace("R$", "")}
                                   </p>
                                 </TableCell>
                                 {/* Pagamentos */}
@@ -850,9 +965,9 @@ function Contratos() {
                                     }}
                                   >
                                     {formaSaldo(contrato.VlTotalPagtos).replace(
-                                    "R$",
-                                    ""
-                                  )}
+                                      "R$",
+                                      ""
+                                    )}
                                   </p>
                                 </TableCell>
                                 {/* Saldo */}
@@ -875,9 +990,9 @@ function Contratos() {
                                     }}
                                   >
                                     {formaSaldo(contrato.VlTotalSaldo).replace(
-                                    "R$",
-                                    ""
-                                  )}
+                                      "R$",
+                                      ""
+                                    )}
                                   </p>
                                 </TableCell>
                                 {/* Produto */}
@@ -927,162 +1042,64 @@ function Contratos() {
                                 </TableCell> */}
                               </div>
                             </div>
-                          ) : tipo == "quantidade" ? (
-                            <div className="contratosDireita">
+                          </TableRow>
+                        ))}
+                      </div>
+                    ) : (
+                      <div
+                        className="ContainerTable-G"
+                        style={{ borderBottom: "1px solid #0000001c" }}
+                      >
+                        {Contratos.map((contrato) => (
+                          <TableRow
+                            key={contrato.IdRegistro}
+                            className="LinhaContratos-G"
+                          >
+                            <div
+                              className="contratosEsquerda"
+                              style={{
+                                minWidth: "500px",
+                                maxWidth: "500px",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
                               <TableCell
-                                className="QtdTotalContrato valor"
+                                className="Tipo"
                                 style={{
                                   borderBottom: "none",
-                                  width: "180px",
-                                  padding: "16px",
+                                  minWidth: "200px",
+                                  maxWidth: "200px",
+                                  heigth: "100%",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "flex-start",
                                 }}
                               >
-                                <p
-                                  style={{
-                                    color:
-                                      contrato.QtdeTotalContrato < 0
-                                        ? "red"
-                                        : contrato.QtdeTotalContrato > 0
-                                        ? "#1976d2"
-                                        : "#676a6c",
-                                    width: "100%",
-                                  }}
-                                >
-                                  {formaSaldo(
-                                    contrato.QtdeTotalContrato
-                                  ).replace("R$", "")}
-                                  kg
-                                </p>
+                                <p>{contrato.NContrato}</p>
                               </TableCell>
+
                               <TableCell
-                                className="QtdTotalCarregado valor"
+                                className="containerCliente"
                                 style={{
                                   borderBottom: "none",
-                                  width: "180px",
-                                  padding: "16px",
+                                  width: "100%",
                                 }}
                               >
-                                <p
-                                  style={{
-                                    color:
-                                      contrato.QtdeTotalCarregado < 0
-                                        ? "red"
-                                        : contrato.QtdeTotalCarregado > 0
-                                        ? "#1976d2"
-                                        : "#676a6c",
-                                    width: "100%",
-                                  }}
-                                >
-                                  {formaSaldo(
-                                    contrato.QtdeTotalCarregado
-                                  ).replace("R$", "")}
-                                  kg
+                                <p className="Pessoa" style={{ width: "100%" }}>
+                                  {contrato.Pessoa}
                                 </p>
-                              </TableCell>
-                              <TableCell
-                                className="QtdTotalPagamentos valor"
-                                style={{
-                                  borderBottom: "none",
-                                  width: "180px",
-                                  padding: "16px",
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    color:
-                                      contrato.QtdeTotalPagtos < 0
-                                        ? "red"
-                                        : contrato.QtdeTotalPagtos > 0
-                                        ? "#1976d2"
-                                        : "#676a6c",
-                                    width: "100%",
-                                  }}
-                                >
-                                  {formaSaldo(contrato.QtdeTotalPagtos).replace(
-                                    "R$",
-                                    ""
-                                  )}
-                                  kg
-                                </p>
-                              </TableCell>
-                              <TableCell
-                                className="QtdTotalSaldo valor"
-                                style={{
-                                  borderBottom: "none",
-                                  width: "180px",
-                                  padding: "16px",
-                                }}
-                              >
-                                <p
-                                  style={{
-                                    color:
-                                      contrato.QtdeTotalSaldo < 0
-                                        ? "#ff0000e0"
-                                        : contrato.QtdeTotalSaldo > 0
-                                        ? "#1976d2"
-                                        : "#676a6c",
-                                    width: "100%",
-                                  }}
-                                >
-                                  {formaSaldo(contrato.QtdeTotalSaldo).replace(
-                                    "R$",
-                                    ""
-                                  )}
-                                  kg
-                                </p>
-                              </TableCell>
-                              <TableCell
-                                className="Produto "
-                                style={{ borderBottom: "none" }}
-                              >
-                                <div
-                                  className="ContainerProduto"
-                                  style={{
-                                    backgroundColor:
-                                      contrato.Produto === "MILHO"
-                                        ? "#ecd60659"
-                                        : contrato.Produto === "SOJA"
-                                        ? "#c3d82552"
-                                        : contrato.Produto === "TRIGO"
-                                        ? "#ff8b004d"
-                                        : contrato.Produto === "ALGODAO"
-                                        ? "#a6d1e363"
-                                        : contrato.Produto === "SORGO"
-                                        ? "#ffa58963"
-                                        : contrato.Produto === "FARELO DE TRIGO"
-                                        ? "#e3c7a65c"
-                                        : "##80808057",
-                                    color:
-                                      contrato.Produto === "MILHO"
-                                        ? "#b38f00"
-                                        : contrato.Produto === "SOJA"
-                                        ? "#8da600"
-                                        : contrato.Produto === "TRIGO"
-                                        ? "#cc7000"
-                                        : contrato.Produto === "ALGODAO"
-                                        ? "#759dbb"
-                                        : contrato.Produto === "SORGO"
-                                        ? "#cc7252"
-                                        : contrato.Produto === "FARELO DE TRIGO"
-                                        ? "#b39f76"
-                                        : "#606060",
-                                  }}
-                                >
-                                  <p style={{ fontWeight: "500" }}>
-                                    {contrato.Produto}
-                                  </p>
-                                </div>
                               </TableCell>
                             </div>
-                          ) : (
-                            <div className="contratosDireita">
+
+                            <div className="contratosDireita" >
                               <TableCell
                                 className="VlTotalContrato valor"
                                 style={{
                                   borderBottom: "none",
                                   textAlign: "end",
-                                  width: "180px",
                                   padding: "16px",
+                                  width: "150px"
                                 }}
                               >
                                 <p
@@ -1095,7 +1112,53 @@ function Contratos() {
                                         : "#676a6c",
                                   }}
                                 >
-                                  {formaSaldo(contrato.VlTotalContrato)}
+                                  {formaSaldo(contrato.VlScTon)}
+                                </p>
+                              </TableCell>
+
+                              <TableCell
+                                className="VlTotalContrato valor"
+                                style={{
+                                  borderBottom: "none",
+                                  textAlign: "end",
+                                  padding: "16px",
+                                  width: "150px"
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    color:
+                                      contrato.VlTotalContrato < 0
+                                        ? "#FF4C51"
+                                        : contrato.VlTotalContrato > 0
+                                        ? "#676a6c"
+                                        : "#676a6c",
+                                  }}
+                                >
+                                  {formaSaldo(contrato.QtdeTotalContrato)}
+                                </p>
+                              </TableCell>
+
+                              <TableCell
+                                className="VlTotalContrato valor"
+                                style={{
+                                  borderBottom: "none",
+                                  textAlign: "end",
+                                  padding: "16px",
+                                  width: "150px",
+                                }}
+                              >
+                                <p
+                                  style={{
+                                    color:
+                                      contrato.VlTotalContrato < 0
+                                        ? "#FF4C51"
+                                        : contrato.VlTotalContrato > 0
+                                        ? "#676a6c"
+                                        : "#676a6c",
+                                  }}
+                                >
+                                  {formaSaldo(contrato.QtdeTotalCarregado)}
                                 </p>
                               </TableCell>
                               <TableCell
@@ -1103,7 +1166,7 @@ function Contratos() {
                                 style={{
                                   borderBottom: "none",
                                   textAlign: "end",
-                                  width: "180px",
+                                  width: "150px",
                                   padding: "16px",
                                 }}
                               >
@@ -1125,7 +1188,7 @@ function Contratos() {
                                 style={{
                                   borderBottom: "none",
                                   textAlign: "end",
-                                  width: "180px",
+                                  width: "150px",
                                   padding: "16px",
                                 }}
                               >
@@ -1147,7 +1210,7 @@ function Contratos() {
                                 style={{
                                   borderBottom: "none",
                                   textAlign: "end",
-                                  width: "180px",
+                                  width: "150px",
                                   padding: "16px",
                                 }}
                               >
@@ -1166,51 +1229,27 @@ function Contratos() {
                               </TableCell>
                               <TableCell
                                 className="Produto "
-                                style={{ borderBottom: "none" }}
+                                style={{ borderBottom: "none", width: "150px" }}
                               >
-                                <div
-                                  className="ContainerProduto"
+                                <p
                                   style={{
-                                    backgroundColor:
-                                      contrato.Produto === "MILHO"
-                                        ? "#ecd60659"
-                                        : contrato.Produto === "SOJA"
-                                        ? "#c3d82552"
-                                        : contrato.Produto === "TRIGO"
-                                        ? "#ff8b004d"
-                                        : contrato.Produto === "ALGODAO"
-                                        ? "#a6d1e363"
-                                        : contrato.Produto === "SORGO"
-                                        ? "#ffa58963"
-                                        : contrato.Produto === "FARELO DE TRIGO"
-                                        ? "#e3c7a65c"
-                                        : "##80808057",
                                     color:
-                                      contrato.Produto === "MILHO"
-                                        ? "#b38f00"
-                                        : contrato.Produto === "SOJA"
-                                        ? "#8da600"
-                                        : contrato.Produto === "TRIGO"
-                                        ? "#cc7000"
-                                        : contrato.Produto === "ALGODAO"
-                                        ? "#759dbb"
-                                        : contrato.Produto === "SORGO"
-                                        ? "#cc7252"
-                                        : contrato.Produto === "FARELO DE TRIGO"
-                                        ? "#b39f76"
-                                        : "#606060",
+                                      contrato.QtdeTotalSaldo < 0
+                                        ? "#FF4C51"
+                                        : contrato.QtdeTotalSaldo > 0
+                                        ? "#676a6c"
+                                        : "#676a6c",
+                                        textAlign: "right"
                                   }}
                                 >
-                                  <p style={{ fontWeight: "500" }}>
-                                    {contrato.Produto}
-                                  </p>
-                                </div>
+                                  {contrato.QtdeTotalSaldo}
+                                </p>
                               </TableCell>
                             </div>
-                          )}
-                        </TableRow>
-                      ))}
-                    </div>
+                          </TableRow>
+                        ))}
+                      </div>
+                    )}
                   </TableBody>
                   <TableFooter>
                     <TableRow
@@ -1327,7 +1366,6 @@ function Contratos() {
                             </p>
                           </TableCell>
 
-
                           <TableCell
                             style={{
                               width: "180px",
@@ -1349,9 +1387,8 @@ function Contratos() {
                               {formaSaldo(VlsaldoNUM)}
                             </p>
                           </TableCell>
-                         
                         </div>
-                      ) : tipo == "quantidade" ? (
+                      ) : (
                         <div className="direitaFooter">
                           <TableCell
                             style={{
@@ -1508,206 +1545,11 @@ function Contratos() {
                             {/* <p>{formaSaldo(VlContratoNUM)}</p> */}
                           </TableCell>
                         </div>
-                      ) : (
-                        <div className="direitaFooter">
-                          <TableCell
-                            style={{
-                              width: "180px",
-                              textAlign: "right",
-                              padding: "16px",
-                            }}
-                          >
-                            <p
-                              style={{
-                                color:
-                                  VlContratoNUM < 0
-                                    ? "#FF4C51"
-                                    : VlContratoNUM > 0
-                                    ? "#676a6c"
-                                    : "#676a6c",
-                                // borderBottom: "1px solid rgb(209 209 209)"
-                              }}
-                            >
-                              {formaSaldo(VlContratoNUM)}
-                            </p>
-                          </TableCell>
-                          <TableCell
-                            style={{
-                              width: "180px",
-                              textAlign: "right",
-                              padding: "16px",
-                            }}
-                          >
-                            <p
-                              style={{
-                                color:
-                                  VlTotalCarregadoNUM < 0
-                                    ? "#FF4C51"
-                                    : VlTotalCarregadoNUM > 0
-                                    ? "#676a6c"
-                                    : "#676a6c",
-                                // borderBottom: "1px solid rgb(209 209 209)"
-                              }}
-                            >
-                              {formaSaldo(VlTotalCarregadoNUM)}
-                            </p>
-                          </TableCell>
-                          <TableCell
-                            style={{
-                              width: "180px",
-                              textAlign: "right",
-                              padding: "16px",
-                            }}
-                          >
-                            <p
-                              style={{
-                                color:
-                                  VlPagamentosNUM < 0
-                                    ? "#FF4C51"
-                                    : VlPagamentosNUM > 0
-                                    ? "#676a6c"
-                                    : "#676a6c",
-                                // borderBottom: "1px solid rgb(209 209 209)"
-                              }}
-                            >
-                              {formaSaldo(VlPagamentosNUM)}
-                            </p>
-                          </TableCell>
-                          <TableCell
-                            style={{
-                              width: "180px",
-                              textAlign: "right",
-                              padding: "16px",
-                            }}
-                          >
-                            <p
-                              style={{
-                                color:
-                                  VlsaldoNUM < 0
-                                    ? "#FF4C51"
-                                    : VlsaldoNUM > 0
-                                    ? "#676a6c"
-                                    : "#676a6c",
-                                // borderBottom: "1px solid rgb(209 209 209)"
-                              }}
-                            >
-                              {formaSaldo(VlsaldoNUM)}
-                            </p>
-                          </TableCell>
-                          <TableCell
-                            style={{
-                              width: "156px",
-                              textAlign: "center",
-                            }}
-                          >
-                            {/* <p>{formaSaldo(VlContratoNUM)}</p> */}
-                          </TableCell>
-                        </div>
                       )}
                     </TableRow>
                   </TableFooter>
                 </Table>
               </div>
-            </TableContainer>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            height={420}
-            className="container-M"
-            sx={{ paddingLeft: "0px" }}
-          >
-            <TableContainer
-              component={Paper}
-              className="TableContainer-M"
-              sx={{
-                boxShadow: "-3px 3px 5px 1px #0000001c",
-                borderRadius: "10px",
-                height: "100%",
-                overflow: "hidden",
-              }}
-            >
-              <Table className="Table-M" style={{ height: "100%" }}>
-                <div
-                  className="Periodo-container"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                >
-                  <Table className="Grafico">
-                    <div
-                      className="GraficoM-container"
-                      style={{
-                        display: "flex",
-                        flexDirection: "Row",
-                        height: "100%",
-                      }}
-                    >
-                      <div
-                        style={{
-                          flex: 1,
-                          overflowY: "hidden",
-                          overflowX: "hidden",
-                          height: "100%",
-                          width: "100%",
-                          display: "flex",
-                          padding: "10px 10px 0px 10px",
-                        }}
-                        className="GraficoPizza-container"
-                      >
-                        <div
-                          className="coluna"
-                          style={{ width: "100%", maxWidth: "1687px" }}
-                        >
-                          <div
-                            style={{
-                              // width: "100%",
-                              flex: 1,
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              // height: "100%",
-                            }}
-                          >
-                            <div
-                              style={{
-                                // width: "100%",
-                                flex: 1,
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                              }}
-                            >
-                              <ValorChart
-                                dataInicio={DataInicial}
-                                dataFim={DataFinal}
-                                IdTipoAgrupamento={tipoGrafico}
-                                tipoContratoGrafico={tipoContratoGrafico}
-                                TipoAgrupamentoPessoaProduto={
-                                  TipoAgrupamentoPessoaProduto
-                                }
-                                esconder={esconder}
-                              />
-                              <QuantidadeChart
-                                dataInicio={DataInicial}
-                                dataFim={DataFinal}
-                                IdTipoAgrupamento={tipoGrafico}
-                                tipoContratoGrafico={tipoContratoGrafico}
-                                TipoAgrupamentoPessoaProduto={
-                                  TipoAgrupamentoPessoaProduto
-                                }
-                                esconder={esconder}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Table>
-                </div>
-              </Table>
             </TableContainer>
           </Grid>
         </Grid>
