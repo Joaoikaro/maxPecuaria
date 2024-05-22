@@ -56,9 +56,9 @@ const Sidebar = () => {
     return navigate("/contrato");
   };
 
-  const carga = () => {
-    return navigate("/cargas");
-  };
+  // const carga = () => {
+  //   return navigate("/cargas");
+  // };
 
 
   return (
@@ -123,14 +123,14 @@ const Sidebar = () => {
                 </i>
                 <a>Contratos</a>
               </li>
-              <li onClick={carga} className="cargas">
+              {/* <li onClick={carga} className="cargas">
                 <i>
                   <LocalShippingIcon
                     style={{ color: "rgba(52, 52, 52, 0.675)" }}
                   />
                 </i>
                 <a>Cargas</a>
-              </li>
+              </li> */}
             </AccordionDetails>
           </Accordion>
         </ul>
