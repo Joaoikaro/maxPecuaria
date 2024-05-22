@@ -1,26 +1,27 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { Grid, Card, CardContent, Typography, Button } from "@mui/material";
+import DataGlobal from "./globalData";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Modal,
+  CircularProgress,
+  Box,
+} from "@mui/material";
 import axios from "axios";
 
 const Cards = (props) => {
+  const { DataInicial, DataFinal, onCardClick } = props;
   const [agrupamentoNome, setAgrupamentoNome] = useState();
   const [agrupamentoDados, setAgrupamentoDados] = useState();
+  const { loading, setLoading } = DataGlobal();
+  const [selectedButton, setSelectedButton] = useState(null);
 
-  //Card de Clientes a Receber
-  const [clientesReceber, setClientesReceber] = useState();
-
-  //Card de Clientes com Saldo
-  const [ClienteSaldo, setClienteSaldo] = useState();
-
-  //Card de Fornecedores a Pagar
-  const [FornecedoresPagar, setFornecedoresPagar] = useState();
-
-  //card de Adiantamento de Fornecedores
-  const [FornecedoresAdiantamento, setFornecedoresAdiantamento] = useState();
-
-  /!Essa função formata os numero em valor de Real, tipo (324.756,00)!/;
+  // Função para formatar números em valor monetário brasileiro
   const formaSaldo = (saldo) => {
     return parseFloat(saldo).toLocaleString("pt-BR", {
       style: "currency",
@@ -30,7 +31,6 @@ const Cards = (props) => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-
     const url = `https://www.gerentemax.somee.com/Dashboard/Contratos/ListarContratos_TipoAgrup`;
 
     axios
@@ -41,23 +41,18 @@ const Cards = (props) => {
         },
       })
       .then((response) => {
-        // setLoading(false);
         setAgrupamentoNome(response.data);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados:", error);
-        // setLoading(false);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("agrupamentoNome", agrupamentoNome);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const data = {
-      DataInicial: props.DataInicial,
-      DataFinal: props.DataFinal,
+      DataInicial: DataInicial,
+      DataFinal: DataFinal,
       IdTipoAgrupamento: null,
       TipoContrato: null,
       TipoAgrupamento: "ID",
@@ -73,38 +68,35 @@ const Cards = (props) => {
         },
       })
       .then((response) => {
-        // setLoading(false);
+        console.log("Log dos cards", response.data);
         setAgrupamentoDados(response.data);
       })
       .catch((error) => {
         console.error("Erro ao buscar dados:", error);
-        // setLoading(false);
       });
-    // .finally(() => setLoading(false));
+  }, [DataInicial, DataFinal]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.DataInicial, props.DataFinal]);
-
-  console.log("agrupamentoDados", agrupamentoDados);
-
-  // const Verdade = ({ agrupamento, agrupamentoDados }) => {
-  //   const vlTotalSaldo = agrupamento.find(
-  //     (item) => item.IdTipoAgrupamento === agrupamentoDados.IdTipoAgrupamento
-  //   )?.VlTotalSaldo;
-
-  //   return (
-  //     <div>
-  //       O valor total do saldo é:{" "}
-  //       {vlTotalSaldo}
-  //     </div>
-  //   );
-  // };
+  const handleButtonClick = (index, agrupamentoId, TipoContratoCard) => {
+    setLoading(true);
+  
+    if (selectedButton === index) {
+      setSelectedButton(null); // Deseleciona o card
+      onCardClick(null, TipoContratoCard); // Passa null para o id
+    } else {
+      setSelectedButton(index); // Seleciona o card
+      onCardClick(agrupamentoId, TipoContratoCard); // Passa o id normalmente
+    }
+  
+    console.log("🚀 ~ handleButtonClick ~ agrupamentoId:", agrupamentoId);
+    console.log("🚀 ~ handleButtonClick ~ TipoContratoCard:", TipoContratoCard);
+  };
+  
 
   return (
-    <Grid container spacing={2} marginTop={1} paddingLeft={2}>
+    <Grid container spacing={2} marginTop={1} paddingLeft={2} height={"100%"} maxHeight={'140px'}>
       {agrupamentoDados &&
         agrupamentoDados.map((agrupamento, index) => (
-          <Grid key={index} item xs={12} sm={6} md={3}>
+          <Grid key={index} item xs={12} sm={6} md={3} style={{ height: "100%", maxHeight: "140px"}}>
             <Card
               style={{
                 borderBottom:
@@ -115,9 +107,39 @@ const Cards = (props) => {
                     : agrupamento.IdTipoAgrupamento === 3
                     ? "3px solid #FF4C51"
                     : "3px solid #61b6ef",
+                backgroundColor:
+                  selectedButton === index
+                    ? agrupamento.IdTipoAgrupamento === 1 ||
+                      agrupamento.IdTipoAgrupamento === 4
+                      ? "#f1f8ff"
+                      : agrupamento.IdTipoAgrupamento === 2 ||
+                        agrupamento.IdTipoAgrupamento === 3
+                      ? "#ffe5e5"
+                      : "#e8e8e8"
+                    : "#ffffff",
+                height: "100%",
+                maxHeight: "140px",
+                width: "100%",
+                transition: "all 0.3s ease",
+                padding: "0px",
               }}
             >
-              <Button style={{ width: "100%", height: "100%" }}>
+              <Button
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  color: "white",
+                  margin: "0",
+                  padding: "10px",
+                }}
+                onClick={() =>
+                  handleButtonClick(
+                    index,
+                    agrupamento.IdTipoAgrupamento,
+                    agrupamento.TipoContrato
+                  )
+                }
+              >
                 <CardContent
                   style={{ width: "100%", textAlign: "left", height: "100%" }}
                 >
@@ -130,6 +152,7 @@ const Cards = (props) => {
                       ? "Fornecedores a Pagar"
                       : "Adiantamento Fornecedores"}
                   </Typography>
+
                   <Typography
                     variant="h5"
                     style={{
@@ -161,6 +184,21 @@ const Cards = (props) => {
             </Card>
           </Grid>
         ))}
+
+      {/* <Modal
+        style={{ backgroundColor: "#00000045" }}
+        open={loading}
+        onClose={() => setLoading(false)}
+      >
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height="100vh"
+        >
+          <CircularProgress className="loader1" size={100} />
+        </Box>
+      </Modal> */}
     </Grid>
   );
 };

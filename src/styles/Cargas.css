@@ -197,16 +197,6 @@ img.BancoLogoIMG {
   justify-content: space-between;
 }
 
-div.ContainerTable-G {
-  display: flex;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  align-items: flex-start;
-  flex-direction: column;
-  max-height: 320px;
-  width: 100%;
-}
-
 .Bancos-G {
   display: flex;
   align-items: center;

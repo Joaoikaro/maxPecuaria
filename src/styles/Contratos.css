@@ -191,6 +191,7 @@ div.ContainerTable-G {
   flex-direction: column;
   height: 100%;
   width: 100%;
+  max-height: 490px;
 }
 
 .Bancos-G {
@@ -335,7 +336,7 @@ tr.Contrato-G > div.direitaHeader > th {
 
 tr.Contrato-G > div > th > p {
   width: 100%;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 tr.Contrato-G > div > th.Data-Header {
@@ -446,9 +447,9 @@ div.TotaisContainer {
   width: 190px;
 }
 
-.contratosEsquerda {
+/* .contratosEsquerda {
   width: 618px;
-}
+} */
 
 .esquerdaHeader {
   width: 100%;
