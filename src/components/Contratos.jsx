@@ -161,6 +161,20 @@ function Contratos() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
+  const abrirMenus = () => {
+    const sidebar = $(".Sidebar");
+    if (sidebar.is(":visible")) {
+      sidebar.stop().fadeOut(10);
+    } else {
+      sidebar.stop().fadeIn(10);
+    }
+  };
+
+  useEffect(() => {
+    abrirMenus();
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem("accessToken");
@@ -225,14 +239,6 @@ function Contratos() {
     event.preventDefault();
   };
 
-  const abrirMenus = () => {
-    const sidebar = $(".Sidebar");
-    if (sidebar.is(":visible")) {
-      sidebar.stop().fadeOut(100);
-    } else {
-      sidebar.stop().fadeIn(300);
-    }
-  };
 
   const GraficoAnoDebito = graficosAno
     .map((item) => {

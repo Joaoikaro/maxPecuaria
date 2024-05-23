@@ -56,10 +56,8 @@ const Sidebar = () => {
     return navigate("/contrato");
   };
 
-  // const carga = () => {
-  //   return navigate("/cargas");
-  // };
-
+ 
+  
 
   return (
     <div className="Sidebar active">

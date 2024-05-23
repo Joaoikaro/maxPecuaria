@@ -4,6 +4,7 @@ import "../styles/Graficos.css";
 import React from "react";
 import { format } from "date-fns";
 import GraficoPizza from "./GraficoDonut";
+import $ from "jquery";
 import GraficoHorizontal from "./GraficoHorizontal";
 import {
   Grid,
@@ -56,6 +57,20 @@ function Graficos() {
   const [DataFinal, setEndDate] = useState(currentDateFormatted);
   const { defaultFinal, defaultInicial } = DataGlobal();
 
+
+  const abrirMenus = () => {
+    const sidebar = $(".Sidebar");
+    if (sidebar.is(":visible")) {
+      sidebar.stop().fadeOut(100);
+    } else {
+      sidebar.stop().fadeIn(300);
+    }
+  };
+
+  useEffect(() => {
+    abrirMenus();
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem("accessToken");
@@ -83,6 +98,9 @@ function Graficos() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
+
+  
+ 
 
   const formaSaldo = (saldo) => {
     return parseFloat(saldo).toLocaleString("pt-BR", {
