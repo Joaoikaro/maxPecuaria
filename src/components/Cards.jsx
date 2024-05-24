@@ -96,7 +96,7 @@ const Cards = (props) => {
     <Grid container spacing={2} marginTop={1} paddingLeft={2} height={"100%"} maxHeight={'140px'}>
       {agrupamentoDados &&
         agrupamentoDados.map((agrupamento, index) => (
-          <Grid key={index} item xs={12} sm={6} md={3} style={{ height: "100%", maxHeight: "140px"}}>
+          <Grid key={index} item xs={12} sm={6} md={3} style={{ height: "100%", maxHeight: "130px", paddingTop: "0px"}}>
             <Card
               style={{
                 borderBottom:
@@ -118,7 +118,7 @@ const Cards = (props) => {
                       : "#e8e8e8"
                     : "#ffffff",
                 height: "100%",
-                maxHeight: "140px",
+                maxHeight: "130px",
                 width: "100%",
                 transition: "all 0.3s ease",
                 padding: "0px",
@@ -184,21 +184,6 @@ const Cards = (props) => {
             </Card>
           </Grid>
         ))}
-
-      {/* <Modal
-        style={{ backgroundColor: "#00000045" }}
-        open={loading}
-        onClose={() => setLoading(false)}
-      >
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100vh"
-        >
-          <CircularProgress className="loader1" size={100} />
-        </Box>
-      </Modal> */}
     </Grid>
   );
 };

@@ -63,7 +63,6 @@ function Contratos() {
     setTipoGrafico,
   } = DataGlobal();
   const [esconder, setEsconder] = useState(0);
-
   const [tipoAgrupamento, setTipoAgrupamento] = useState(null);
   const [tipo, setTipo] = useState("quantidade");
   const [agrupamentoNumero, setAgrupamentoNumero] = useState();
@@ -161,7 +160,6 @@ function Contratos() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
   const abrirMenus = () => {
     const sidebar = $(".Sidebar");
     if (sidebar.is(":visible")) {
@@ -238,7 +236,6 @@ function Contratos() {
   const handleSubmitChart = (event) => {
     event.preventDefault();
   };
-
 
   const GraficoAnoDebito = graficosAno
     .map((item) => {
@@ -396,68 +393,6 @@ function Contratos() {
                       }}
                     />
                   </div>
-
-                  <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                    {/* <InputLabel>Exibir</InputLabel> */}
-                    <label>Exibir</label>
-                    <Form.Select
-                      style={{
-                        height: "30px",
-                        borderRadius: "5px",
-                        lineHeight: "1.4375em",
-                        border: "1px solid rgba(195, 195, 195)",
-                      }}
-                      value={tipo}
-                      label="Exibir"
-                      onChange={(event) => {
-                        // console.log(event.target);
-                        if (event.target.value == "valores") {
-                          setEsconder(0);
-                        } else if (event.target.value == "quantidade") {
-                          setEsconder(1);
-                        } else if (event.target.value == "valor") {
-                          setEsconder(2);
-                        } else {
-                          console.log("Tu é burro");
-                        }
-                        setTipo(event.target.value);
-                      }}
-                    >
-                      <option value={"valores"}>Valores</option>
-                      <option value={"quantidade"}>
-                        Quantidades e Valores
-                      </option>
-                    </Form.Select>
-                  </FormControl>
-
-                  <FormControl
-                    sx={{
-                      m: 1,
-                      minWidth: 150,
-                      margin: "0px",
-                    }}
-                    size="small"
-                  >
-                    <label>Agrupar</label>
-
-                    <Form.Select
-                      style={{
-                        height: "30px",
-                        borderRadius: "5px",
-                        lineHeight: "1.4375em",
-                        border: "1px solid rgba(195, 195, 195)",
-                      }}
-                      id="demo-select-small"
-                      value={TipoAgrupamentoPessoaProduto}
-                      label="Agrupar"
-                      onChange={(event) =>
-                        setTipoAgrupamentoPessoaProduto(event.target.value)
-                      }
-                    >
-                      <option value={"PRODUTO"}>Produto</option>
-                      <option value={"PESSOA"}>Pessoa</option>
-                    </Form.Select>
-                  </FormControl>
                 </form>
               </TableCell>
             </div>
@@ -467,13 +402,74 @@ function Contratos() {
             DataInicial={DataInicial}
             DataFinal={DataFinal}
           />
+          <form style={{ flexDirection: "row", justifyContent: "flex-end", width: "100%", height: "50px", flexWrap: "wrap", alignContent: "flex-start" }}>
+            <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
+              {/* <InputLabel>Exibir</InputLabel> */}
+              <label>Exibir</label>
+              <Form.Select
+                style={{
+                  height: "30px",
+                  borderRadius: "5px",
+                  lineHeight: "1.4375em",
+                  border: "1px solid rgba(195, 195, 195)",
+                }}
+                value={tipo}
+                label="Exibir"
+                onChange={(event) => {
+                  // console.log(event.target);
+                  if (event.target.value == "valores") {
+                    setEsconder(0);
+                  } else if (event.target.value == "quantidade") {
+                    setEsconder(1);
+                  } else if (event.target.value == "valor") {
+                    setEsconder(2);
+                  } else {
+                    console.log("Tu é burro");
+                  }
+                  setTipo(event.target.value);
+                }}
+              >
+                <option value={"valores"}>Valores</option>
+                <option value={"quantidade"}>Quantidades e Valores</option>
+              </Form.Select>
+            </FormControl>
+
+            <FormControl
+              sx={{
+                m: 1,
+                minWidth: 150,
+                margin: "0px",
+              }}
+              size="small"
+            >
+              <label>Agrupar</label>
+
+              <Form.Select
+                style={{
+                  height: "30px",
+                  borderRadius: "5px",
+                  lineHeight: "1.4375em",
+                  border: "1px solid rgba(195, 195, 195)",
+                }}
+                id="demo-select-small"
+                value={TipoAgrupamentoPessoaProduto}
+                label="Agrupar"
+                onChange={(event) =>
+                  setTipoAgrupamentoPessoaProduto(event.target.value)
+                }
+              >
+                <option value={"PRODUTO"}>Produto</option>
+                <option value={"PESSOA"}>Pessoa</option>
+              </Form.Select>
+            </FormControl>
+          </form>
 
           <Grid
             item
             xs={12}
             md={12}
             sm={12}
-            height={600}
+            height={550}
             className="container-G"
           >
             <TableContainer
@@ -1307,7 +1303,10 @@ function Contratos() {
                                 // borderBottom: "1px solid rgb(209 209 209)"
                               }}
                             >
-                              {formaSaldo(QtdeTotalCarregadoNUM).replace("R$", "")}
+                              {formaSaldo(QtdeTotalCarregadoNUM).replace(
+                                "R$",
+                                ""
+                              )}
                               kg
                             </p>
                           </TableCell>
@@ -1323,7 +1322,7 @@ function Contratos() {
                             <p
                               style={{
                                 color:
-                                VlTotalCarregadoNUM < 0
+                                  VlTotalCarregadoNUM < 0
                                     ? "#FF4C51"
                                     : VlTotalCarregadoNUM > 0
                                     ? "#676a6c"
@@ -1331,9 +1330,12 @@ function Contratos() {
                                 // borderBottom: "1px solid rgb(209 209 209)"
                               }}
                             >
-                              {formaSaldo(VlTotalCarregadoNUM).replace("R$", "")}
+                              {formaSaldo(VlTotalCarregadoNUM).replace(
+                                "R$",
+                                ""
+                              )}
                               kg
-                            </p>  
+                            </p>
                           </TableCell>
 
                           {/* Total Carregado(R$) */}
@@ -1374,13 +1376,6 @@ function Contratos() {
             </TableContainer>
           </Grid>
         </Grid>
-        {/* <Cargas
-          dataInicio={DataInicial}
-          dataFim={DataFinal}
-          IdTipoAgrupamento={tipoGrafico}
-          tipoContratoGrafico={tipoContratoGrafico}
-          TipoAgrupamentoPessoaProduto={TipoAgrupamentoPessoaProduto}
-        ></Cargas> */}
         <Modal
           style={{ backgroundColor: "#00000045" }}
           open={loading}

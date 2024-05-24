@@ -57,7 +57,6 @@ function Graficos() {
   const [DataFinal, setEndDate] = useState(currentDateFormatted);
   const { defaultFinal, defaultInicial } = DataGlobal();
 
-
   const abrirMenus = () => {
     const sidebar = $(".Sidebar");
     if (sidebar.is(":visible")) {
@@ -98,9 +97,6 @@ function Graficos() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
-
-  
- 
 
   const formaSaldo = (saldo) => {
     return parseFloat(saldo).toLocaleString("pt-BR", {
@@ -461,9 +457,7 @@ function Graficos() {
             lg={12}
             sx={{ width: "90%" }}
           >
-            <Grid item
-            xs={4} sm={4} md={4} lg={4}
-            className="container-P">
+            <Grid item xs={4} sm={4} md={4} lg={4} className="container-P">
               <TableContainer
                 component={Paper}
                 className="TableContainer-P"
@@ -474,7 +468,10 @@ function Graficos() {
               >
                 <Table className="Table-P">
                   <TableHead className="TableHead-P">
-                    <TableRow className="header-P" sx={{ borderBottom: "none" }}>
+                    <TableRow
+                      className="header-P"
+                      sx={{ borderBottom: "none" }}
+                    >
                       <TableCell
                         className="TableTitle-P"
                         sx={{
@@ -537,7 +534,10 @@ function Graficos() {
                                     borderBottom: "none",
                                   }}
                                 >
-                                  {format(new Date(banco.DataSaldo), "dd/MM/yyyy")}
+                                  {format(
+                                    new Date(banco.DataSaldo),
+                                    "dd/MM/yyyy"
+                                  )}
                                 </TableCell>
                               </div>
                             </div>
@@ -666,7 +666,10 @@ function Graficos() {
                     }}
                   >
                     <Typography variant="h6">
-                      <TableCell className="fluxoTitulo" style={{ border: "none" }}>
+                      <TableCell
+                        className="fluxoTitulo"
+                        style={{ border: "none" }}
+                      >
                         <Typography
                           sx={{
                             color: "#676A6C",
@@ -679,7 +682,10 @@ function Graficos() {
                       </TableCell>
                     </Typography>
                     <div>
-                      <TableCell className="Data-input" style={{ border: "none" }}>
+                      <TableCell
+                        className="Data-input"
+                        style={{ border: "none" }}
+                      >
                         <form
                           onChange={handleSubmit}
                           style={{ display: "flex", flexDirection: "row" }}
@@ -688,7 +694,9 @@ function Graficos() {
                             type="date"
                             label="Data Inicial"
                             defaultValue={defaultInicial}
-                            onChange={(event) => setStartDate(event.target.value)}
+                            onChange={(event) =>
+                              setStartDate(event.target.value)
+                            }
                             slotProps={{
                               input: {
                                 min: "1990-01-01",
@@ -754,7 +762,10 @@ function Graficos() {
                           />
                         </form>
                       </TableCell>
-                      <TableCell className="opcaoMenu" sx={{ borderBottom: "0px" }}>
+                      <TableCell
+                        className="opcaoMenu"
+                        sx={{ borderBottom: "0px" }}
+                      >
                         <Typography
                           onClick={handleMenuOpen}
                           sx={{
@@ -963,7 +974,9 @@ function Graficos() {
                                   className="DataVenc"
                                   style={{
                                     color:
-                                      periodo.DataVenc !== null ? "" : "#676A6C",
+                                      periodo.DataVenc !== null
+                                        ? ""
+                                        : "#676A6C",
                                     display:
                                       periodo.DataVenc !== null ? "" : "flex",
                                     justifyContent:
@@ -1078,13 +1091,17 @@ function Graficos() {
                                       position: "relative",
                                       left: "40px",
                                       color:
-                                        periodo.Saldo < 0 ? "#FF4C51" : "#1976d2",
+                                        periodo.Saldo < 0
+                                          ? "#FF4C51"
+                                          : "#1976d2",
                                     }}
                                   >
                                     <span
                                       style={{
                                         backgroundColor:
-                                          periodo.Saldo < 0 ? "#FFECEC" : "#EAF6FF",
+                                          periodo.Saldo < 0
+                                            ? "#FFECEC"
+                                            : "#EAF6FF",
                                         display: "flex",
                                         padding: "4% 0px 0px 30%",
                                         width: "120px",
@@ -1119,10 +1136,9 @@ function Graficos() {
                             >
                               {" "}
                               <img src={Credito} />{" "}
-                              {formaSaldo(Math.floor(Creditos).toFixed(2)).replace(
-                                "R$",
-                                ""
-                              )}
+                              {formaSaldo(
+                                Math.floor(Creditos).toFixed(2)
+                              ).replace("R$", "")}
                             </p>
                           </div>
                           <div className="bloco containerDebitos">
@@ -1148,17 +1164,17 @@ function Graficos() {
                               style={{
                                 backgroundColor:
                                   Saldos > 0 ? "rgb(234, 246, 255)" : "#FFECEC",
-                                color: Saldos > 0 ? "rgb(25, 118, 210)" : "#FF4C51",
+                                color:
+                                  Saldos > 0 ? "rgb(25, 118, 210)" : "#FF4C51",
                               }}
                             >
                               <img
                                 src={Saldos > 0 ? Saldo1 : Saldo2}
                                 alt="Ícone de Saldo"
                               />
-                              {formaSaldo(Math.floor(Saldos).toFixed(2)).replace(
-                                "R$",
-                                ""
-                              )}
+                              {formaSaldo(
+                                Math.floor(Saldos).toFixed(2)
+                              ).replace("R$", "")}
                             </p>
                           </div>
                         </div>
