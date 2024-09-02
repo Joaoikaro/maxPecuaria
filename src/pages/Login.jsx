@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import React from "react";
@@ -14,11 +15,20 @@ import {
   CircularProgress,
   Backdrop,
 } from "@material-ui/core";
-import LogoLogin from "../components/Logo_.png";
+import LogoLogin from "../../src/images/Logo_.png";
 import "../styles/Login.css";
 import CloseIcon from "@mui/icons-material/Close";
-import { Alert, Box, Dialog, IconButton, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Container,
+  Dialog,
+  IconButton,
+  Snackbar,
+} from "@mui/material";
 import DataGlobal from "../components/globalData";
+import LogoPecuaria from "../../src/images/Max Pecuaria.png";
+import endpoints from "../services/endpoints";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -27,18 +37,17 @@ const LoginPage = () => {
   const [companies, setCompanies] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { checked, setChecked } = DataGlobal();
+  const { checked, setChecked } = useState(Boolean);
   useEffect(() => {
-    const validar = localStorage.getItem("Claudio");
+    const validar = localStorage.getItem("ManterConexão");
     if (validar === true) {
       navigate("/empresas");
     } else {
       localStorage.clear();
     }
-    
-  }, []);
 
- 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const OnSubmit = async (chaveSistema) => {
     const Email = localStorage.getItem("Email");
@@ -58,7 +67,7 @@ const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "https://gerentemax.somee.com/Tenant/Account/AuthLogin",
+        endpoints.loginEndpoint,
         params
       );
 
@@ -68,21 +77,20 @@ const LoginPage = () => {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("userData", nomeUser);
 
-      navigate("/main");
+      navigate("/empresas");
     } catch (error) {
       setLoading(false);
       setError(true);
     }
   };
 
-
   useEffect(() => {
     if (checked === true) {
-      localStorage.setItem("Claudio", true);
+      localStorage.setItem("ManterConexão", true);
     } else {
-      localStorage.setItem("Claudio", false);
+      localStorage.setItem("ManterConexão", false);
     }
-    console.log("Manter conectado: ", localStorage.getItem("Claudio"));
+    console.log("Manter conectado: ", localStorage.getItem("ManterConexão"));
   }, [setChecked, checked]);
 
   const handleLoginLogin = async () => {
@@ -98,7 +106,7 @@ const LoginPage = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "https://gerentemax.somee.com/Tenant/Account/Sistemas/AuthSistemas",
+        endpoints.loginEndpoint,
         params
       );
       if (response != undefined) {
@@ -127,6 +135,10 @@ const LoginPage = () => {
           if (response.data != null) {
             return "1";
           }
+
+          if (error === true) {
+            console.log(response.statusText);
+          }
         };
 
         localStorage.setItem("Autenticacao", Autenticacao());
@@ -144,14 +156,12 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    const claudioValue = localStorage.getItem("Claudio");
+    const claudioValue = localStorage.getItem("ManterConexão");
     if (claudioValue === true) {
-      // Autenticar automaticamente o usuário
-      // Exemplo: chamar uma função de autenticação
       handleLoginLogin();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
   const action = (
     <React.Fragment>
@@ -181,78 +191,140 @@ const LoginPage = () => {
     },
   }));
 
+  const LoginIllustrationWrapper = styled(Box)(({ theme }) => ({
+   
+    marginLeft: "-50px",
+    [theme.breakpoints.down("lg")]: {
+      padding: "0"
+    },
+  }));
+
+  const LoginIllustration = styled("img")(({ theme }) => ({
+    maxWidth: "45rem",
+    [theme.breakpoints.down("lg")]: {
+      maxWidth: "35rem",
+    },
+  }));
+
   const label = { inputProps: { "aria-label": "Color switch demo" } };
 
   return (
-    <div className="login-container">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleLoginLogin();
+    <Container
+
+      sx={{
+        minWidth: "100vw",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#F4F5FA",
+
+        "@media (max-width: 1050px)": {
+          justifyContent: "center",
+        }
+      }}
+    >
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          position: "relative",
+          alignItems: "center",
+          justifyContent: "center",
+          "@media (max-width: 1050px)": {
+            display: "none", // This style is redundant with the `display` object property above
+          },
         }}
       >
-        <div className="container-GERENTEMAX">
-          <img className="logoLogin" src={LogoLogin} alt="GerenteMax" />
-        </div>
-        <div className="bem-vindo">
-          <h3>Bem-Vindo(a)</h3>
-          <p>Faça login utilizando sua conta registrada</p>
-        </div>
-        <div className="user">
-          E-mail
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            type="email"
-            className="input"
-            value={Email}
-            onChange={(e) => setEmail(e.target.value)}
+        <LoginIllustrationWrapper>
+          <LoginIllustration
+            alt="login-illustration"
+            src={`/images/logo-home.png`}
           />
-        </div>
-        <div className="user">
-          Senha
-          <TextField
-            id="outlined-basic"
-            variant="outlined"
-            className="input"
-            type="password"
-            value={Senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-        </div>
-        <div className="remember">
-          <PinkSwitch checked={localStorage.getItem("Claudio")} onClick={() => setChecked(!checked)} />
-          Mantenha-me conectado
-        </div>
-        <Button type="submit" className="btn-Entrar" onClick={handleLoginLogin}>
-          Entrar
-        </Button>
-        <a href="#">Esqueceu sua senha?</a>
-        {error && (
-          <p className="invalido" style={{ color: "red" }}>
-            E-mail e/ou senha inválidos
-          </p>
-        )}{" "}
-        <footer>
-          <p>© Copyright 2024. Todos os direitos reservados</p>
-        </footer>
-      </form>
-      <Modal
-        style={{ backgroundColor: "#00000045" }}
-        fullWidth
-        open={loading}
-        onClose={() => setLoading(false)}
-      >
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100vh"
+        </LoginIllustrationWrapper>
+      </Box>
+
+      <div className="login-container">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLoginLogin();
+          }}
         >
-          <CircularProgress className="loader1" size={100} />
-        </Box>
-      </Modal>
-    </div>
+          <div className="container-GERENTEMAX">
+            <img className="logoLogin" src={LogoLogin} alt="GerenteMax" />
+          </div>
+          <div className="bem-vindo">
+            <h3>Bem-Vindo(a)</h3>
+            <p>Faça login utilizando sua conta registrada</p>
+          </div>
+          <div className="user">
+            E-mail
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              type="email"
+              className="input"
+              value={Email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              sx={{height: "500px"}}
+            />
+          </div>
+          <div className="user">
+            Senha
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              className="input"
+              type="password"
+              required
+              value={Senha}
+              onChange={(e) => setSenha(e.target.value)}
+            />
+          </div>
+          <div className="remember">
+            <PinkSwitch
+              checked={checked}
+              onClick={() => setChecked(!checked)}
+            />
+            <p>Mantenha-me conectado</p>
+          </div>
+          <Button
+            type="submit"
+            className="btn-Entrar"
+            disabled={Email === "" || Senha === ""}
+            onClick={handleLoginLogin}
+          >
+            Entrar
+          </Button>
+          <a href="#">Esqueceu sua senha?</a>
+          {error && (
+            <p className="invalido" style={{ color: "red" }}>
+              E-mail e/ou senha inválidos
+            </p>
+          )}
+          <footer className="footerLogin">
+            <p>© Copyright 2024. Todos os direitos reservados</p>
+          </footer>
+        </form>
+        <Modal
+          style={{ backgroundColor: "#00000045" }}
+          fullWidth
+          open={loading}
+          onClose={() => setLoading(false)}
+        >
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="100vh"
+          >
+            <CircularProgress className="loader1" size={100} />
+          </Box>
+        </Modal>
+      </div>
+    </Container>
   );
 };
 

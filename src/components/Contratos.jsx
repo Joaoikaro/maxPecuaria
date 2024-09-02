@@ -173,6 +173,8 @@ function Contratos() {
     abrirMenus();
   }, []);
 
+
+  // aqui é onde define os dados da tabela
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem("accessToken");
@@ -301,7 +303,7 @@ function Contratos() {
         <p> </p>
       </div>
       <div className="Grid">
-        <Grid container spacing={2} sx={{ width: "90%", height: "100%" }}>
+        <Grid container spacing={2} sx={{ width: "90%", height: "100%", paddingTop: "10px" }}>
           <div
             className="filtros"
             style={{
@@ -469,7 +471,8 @@ function Contratos() {
             xs={12}
             md={12}
             sm={12}
-            height={550}
+            height={"70%"}
+            minHeight={200}
             className="container-G"
           >
             <TableContainer
@@ -1119,7 +1122,10 @@ function Contratos() {
                       {/* ew */}
                       <div
                         className="esquerdaFooter"
-                        style={{ maxWidth: "450px", minWidth: "450px" }}
+                        style={{
+                          maxWidth: tipo === "valores" ? "650px" : "450px",
+                          minWidth: tipo === "valores" ? "650px" : "450px"
+                        }}
                       >
                         <TableCell
                           className="enchimento"

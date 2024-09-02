@@ -50,7 +50,7 @@ div.Main::-webkit-scrollbar-button {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  margin-top: inherit;
+  margin-top: 0;
 }
 
 .TableContainer-P {
@@ -74,15 +74,6 @@ div.Main::-webkit-scrollbar-button {
   flex-direction: row;
   justify-content: space-between;
 }
-/* 
-div.ContainerTable-P {
-  display: flex;
-  overflow: auto;
-  overflow-x: hidden;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 290px;
-} */
 
 .ContainerTable-P::-webkit-scrollbar {
   width: 5px;
@@ -372,9 +363,7 @@ div.direita-G {
   justify-content: space-between;
 }
 
-.containerPagamento {
-  width: 24.6%;
-}
+
 
 .containerAllSpan {
   display: flex;
@@ -536,4 +525,16 @@ div.TotaisContainer {
 img.iconKG {
   width: 14px;
   height: 14px;
+}
+
+@media (max-height: 935px) {
+  div.Grid {
+    margin-top: 1vh;
+  }
+}
+
+@media (max-height: 530px) {
+  div.Grid {
+    margin-top: 40px;
+  }
 }

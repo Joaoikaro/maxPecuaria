@@ -21,6 +21,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import { TbArrowBackUp } from "react-icons/tb";
+import logo from "../images/favicon.png";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -57,9 +58,7 @@ function Dashboard() {
   }, [navigate]);
 
   useEffect(() => {
-    // console.log("rodou a const");
     setLoading(true);
-    abrirMenus();
     const Autenticacao = localStorage.getItem("Autenticacao");
     const Email = localStorage.getItem("Email");
     const Senha = localStorage.getItem("Senha");
@@ -74,8 +73,11 @@ function Dashboard() {
           }
         )
         .then((response) => {
-          setCompanies(response.data);
-          setFilteredCompanies(response.data);
+          const sortedCompanies = response.data.sort((a, b) =>
+            a.Cliente_ApelidoFantasia.localeCompare(b.Cliente_ApelidoFantasia)
+          );
+          setCompanies(sortedCompanies);
+          setFilteredCompanies(sortedCompanies);
           setLoading(false);
         })
         .catch((error) => console.error("Erro ao buscar dados:", error));
@@ -87,11 +89,15 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    const filtered = companies.filter((company) =>
-      company.Cliente_ApelidoFantasia.toLowerCase().includes(
-        searchValue.toLowerCase()
+    const filtered = companies
+      .filter((company) =>
+        company.Cliente_ApelidoFantasia.toLowerCase().includes(
+          searchValue.toLowerCase()
+        )
       )
-    );
+      .sort((a, b) =>
+        a.Cliente_ApelidoFantasia.localeCompare(b.Cliente_ApelidoFantasia)
+      );
 
     setFilteredCompanies(filtered);
     inputRef.current.focus();
@@ -122,15 +128,9 @@ function Dashboard() {
     left: -2,
   }));
 
-  const abrirMenus = () => {
-    const sidebar = $(".Sidebar");
-
-    if (sidebar.is(":visible")) {
-      sidebar.stop().fadeOut(100);
-    } else {
-      sidebar.stop().fadeIn(300);
-    }
-  };
+  const LogoGmax = styled("img")(({ theme }) => ({
+    maxWidth: "40px",
+  }));
 
   const onSubmit = async (chaveSistema) => {
     setLoading(true);
@@ -160,7 +160,7 @@ function Dashboard() {
       const nomeUser = response.data.Descricao_DB;
       localStorage.setItem("userData", nomeUser);
       setLoading(true);
-      navigate("/fluxo");
+      navigate("/main");
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       setError("Email", {
@@ -179,15 +179,11 @@ function Dashboard() {
     <div className="container">
       <header>
         <div className="container-header">
-          <GiHamburgerMenu
-            color="#343434ac"
-            className="menu"
-            onClick={abrirMenus}
-          />
           <div className="container-search">
+            <LogoGmax src={logo} />
             <form className="form-empresas">
               <FormControl>
-                <div style={{display: "flex"}}>
+                <div style={{ display: "flex" }}>
                   <SearchIcon />
                   <InputBase
                     placeholder="Pesquisar"
@@ -213,7 +209,7 @@ function Dashboard() {
           </div>
         </div>
       </header>
-      <div className="preenchimento"></div>
+      <div className="preenchimento-header"></div>
       <div className="container-empresas">
         <Grid sx={{ justifyContent: "center" }} spacing={0} container>
           {filteredCompanies.map((company, index) => (
@@ -298,6 +294,7 @@ function Dashboard() {
           <TbArrowBackUp size={27} />
           Voltar para login
         </Button>
+        <div className="preenchimento-header"></div>
 
         <Modal
           style={{ backgroundColor: "#00000045" }}

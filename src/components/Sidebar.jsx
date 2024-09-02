@@ -1,30 +1,39 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import "../styles/Sidebar.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
-import { BiUserCircle } from "react-icons/bi";
+
 import axios from "axios";
-import { Button, Typography } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
-import { RequestPageOutlined } from "@mui/icons-material";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-
 import {
-  Apartment,
-  Description,
-  LocalShipping,
-  PersonPinCircleOutlined,
+  Box,
+  Button,
+  ButtonGroup,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Modal,
+  Typography,
+} from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {
+  Cancel,
+  CloseFullscreenRounded,
+  InboxOutlined,
+  Person,
+  Person2Outlined,
 } from "@mui/icons-material";
+import Logo from "../images/Logo_.png";
+import { CloseIcon } from "@mui/icons-material/Close";
+import Usuarios from './../pages/Usuarios';
 
-const Sidebar = () => {
+const Sidebar = ({ open, setOpen }) => {
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
   const [clienteNome, setClienteNome] = useState("");
 
   useEffect(() => {
@@ -44,113 +53,150 @@ const Sidebar = () => {
     navigate("/");
   };
 
-  const empresa = () => {
-    return navigate("/empresa");
+  const Empresas = () => {
+    navigate("/empresas");
   };
 
-  const fluxo = () => {
-    return navigate("/fluxo");
+  const Usuarios = () => {
+    navigate("/usuarios");
   };
 
-  const contrato = () => {
-    return navigate("/contrato");
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
   };
 
- 
-  
+  const SidebarOptions = (
+    <Box
+      sx={{ width: 250, height: "100%" }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+    >
+      <List sx={{ height: "100%" }}>
+        <div
+          style={{ padding: "15px", display: "flex", justifyContent: "center" }}
+        >
+          <img style={{ width: "100%", height: "100%" }} src={Logo}></img>
+        </div>
+
+        <Divider />
+
+        <ListItem>
+          <ListItemButton onClick={Empresas}>
+            <ListItemIcon>
+              <InboxOutlined />
+            </ListItemIcon>
+            <ListItemText primary={"Empresas"} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem>
+          <ListItemButton onClick={Usuarios}>
+            <ListItemIcon>
+              <Person2Outlined />
+            </ListItemIcon>
+            <ListItemText primary={"Usuários"} />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem
+          sx={{
+            height: "100%",
+            display: "flex",
+            alignItems: "end",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            sx={{
+              backgroundColor: "red",
+              width: "90%",
+              color: "white",
+              ":hover": { backgroundColor: "#dc0000" },
+            }}
+            endIcon={<LogoutIcon />}
+            onClick={() => setOpenModal(true)}
+          >
+            <Typography fontWeight="bold" fontSize={15}>
+              Sair
+            </Typography>
+          </Button>
+        </ListItem>
+      </List>
+    </Box>
+  );
 
   return (
-    <div className="Sidebar active">
-      <div className="sidebar-content">
-        <ul>
-          <li onClick={empresa}>
-            <i>
-              <Apartment style={{margin: "0px 3px 0px 13px"}}/>
-            </i>
-            <a>Empresas</a>
-          </li>
-          <Accordion
+    <>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {SidebarOptions}
+      </Drawer>
+      <Modal
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        open={openModal}
+      >
+        <Box
+          sx={{ height: 200, width: 600, bgcolor: "white", borderRadius: 2 }}
+        >
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Cancel color="primary" onClick={() => setOpenModal(false)} />
+          </div>
+
+          <div
+            className="geralModalWrapper"
             style={{
-              boxShadow: "none",
+              height: "100%",
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "flex-start",
+              justifyContent: "space-between",
             }}
           >
-            <AccordionSummary
-              expandIcon={<ArrowDropDownIcon />}
-              aria-controls="panel2-content"
-              id="panel2-header"
-              style={{width: "100%", padding: "0px 0px 0px 10px"}}
-            >
+            <div className="ModalHeader">
               <Typography
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
-                }}
+                fontSize={40}
+                component="h2"
+                variant="h2"
+                fontWeight="bold"
+                marginBottom={2}
+                color="primary"
               >
-                {" "}
-                <SpaceDashboardIcon
-                  fontSize="small"
-                  style={{
-                    color: "rgba(52, 52, 52, 0.675)",
-                    marginRight: "20px",
-                    marginLeft: "4px",
-                  }}
-                />{" "}
-                Dashboard
+                Deseja encerrar a sessão?
               </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <li onClick={fluxo} className="dashboard">
-                <i>
-                  <AlignHorizontalLeftIcon
-                    style={{ color: "rgba(52, 52, 52, 0.675)" }}
-                  />
-                </i>
-                <a>Financeiro</a>
-              </li>
-              <li onClick={contrato} className="cargas">
-                <i>
-                  <RequestPageOutlined
-                    style={{ color: "rgba(52, 52, 52, 0.675)" }}
-                  />
-                </i>
-                <a>Contratos</a>
-              </li>
-              {/* <li onClick={carga} className="cargas">
-                <i>
-                  <LocalShippingIcon
-                    style={{ color: "rgba(52, 52, 52, 0.675)" }}
-                  />
-                </i>
-                <a>Cargas</a>
-              </li> */}
-            </AccordionDetails>
-          </Accordion>
-        </ul>
-        <div className="container-user">
-          <div className="user-info-">
-            <BiUserCircle className="user-icon-" />
-            <span>{clienteNome}</span>
+
+              <Typography align="center" fontSize={16}>
+                Ao desconectar sua conta, você sera redirecionado para o Login
+              </Typography>
+            </div>
+
+            <ButtonGroup
+              disableElevation
+              variant="contained"
+              aria-label="Disabled button group"
+              fullWidth
+              sx={{
+                height: "35%",
+                overflow: "hidden",
+                borderRadius: "0 0 7px 7px",
+              }}
+            >
+              <Button
+                sx={{ width: "50%", borderRadius: 0 }}
+                color="error"
+                onClick={Sair}
+              >
+                <Typography>Sair</Typography>
+              </Button>
+              <Button
+                sx={{ width: "50%", borderRadius: 0 }}
+                onClick={() => setOpenModal(false)}
+              >
+                Permanecer
+              </Button>
+            </ButtonGroup>
           </div>
-        </div>
-        <div className="container-logout">
-          <Button
-            onClick={Sair}
-            variant="contained"
-            color="error"
-            style={{ width: "100%" }}
-          >
-            Sair
-            <LogoutIcon fontSize="small" />
-          </Button>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Modal>
+    </>
   );
 };
 
