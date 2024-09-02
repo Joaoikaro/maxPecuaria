@@ -1,0 +1,40 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   padding: 0;
+   width: 100vw;
+   font-size: 15px;
+   color: gray;
+   font-family: 'Poppins';
+   height: 100vh;
+   background-color: #f9f9f9;
+   overflow-x: hidden;
+   overflow-y: hidden;
+}
+
+body::-webkit-scrollbar {
+   background-color: transparent;
+   width: .5em;
+}
+
+body::-webkit-scrollbar-thumb {
+   background-color: #00000053;
+   border-radius: 15px;
+   -webkit-transition: background-color 0.5s;
+   transition: background-color 0.5s;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+   -webkit-transition: background-color 0.5s;
+   transition: background-color 0.5s;
+   background-color: rgba(57, 57, 57, 0.619);
+}
+
+Main {
+   display: none;
+}

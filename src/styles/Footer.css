@@ -1,0 +1,35 @@
+
+.footer {
+    position: fixed;
+    display: flex;
+    bottom: 5px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* margin-bottom: 10px; */
+}
+
+ img.imgFooter {
+  height: 25px;
+}
+
+@media (max-height: 700px) {
+  .footer {
+    display: none;
+  }
+}
+
+/* @media (max-width: 425px) {
+   .footer {
+      margin-bottom: -1px;
+   }
+}
+
+
+@media (max-width: 375px) {
+  .footer {
+    bottom: 0px;
+    width: 100%;
+  }
+} */
