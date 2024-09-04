@@ -366,7 +366,7 @@ function ListarUsuarios() {
         })
         .then((response) => {
           fecharModalOptions();
-          setAvisoEditado(true); // Exibe o Snackbar de sucesso
+          setAvisoEditado(true);
           fetchUsuarios();
         })
         .finally(() => setLoading(false));
@@ -381,6 +381,8 @@ function ListarUsuarios() {
   const handleFecharEditAviso = () => {
     setAvisoEditado(false);
   };
+
+  
 
   const handleCloseModalDesativar = () => setOpenModalDesativar(false);
 
